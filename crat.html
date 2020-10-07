@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <h1>Кратное <select onchange='change(this)'>
+     <option value=2>2</option>
+     <option value=3>3</option>
+     <option value=5>5</option>
+     <option value=6>6</option>
+     <option value=9>9</option>
+     <option value=15>15</option>
+     <option value=45>45</option>
+    </select>?</h1>
+    <div>
+      <button onclick='yes()'>yes</button>
+      <span id='number'></span>
+      <button onclick='no()'>no</button>
+    </div>
+    <hr>
+    <div id='stats'>
+      <div>total: <span id='total'></span></div>
+      <div>correct: <span id='correct'>-</span>(<span id='procent'>-</span>%)</div>
+    </div>
+    <script>
+      const e = Object.fromEntries(['number', 'total', 'correct', 'procent', 'stats'].map(id => [id, document.querySelector('#' + id)]))
+
+      const random = () => Math.round(Math.random() * 1000)
+
+      const state = {
+        total: 0,
+        correct: 0,
+        crat: 2,
+        number: 0
+      }
+
+      const update = () => {
+        state.number = random()
+        e.number.innerText = state.number
+        if (state.total) {
+          e.stats.style.display = 'block'
+          e.total.innerText = state.total
+          e.correct.innerText = state.correct
+          e.procent.innerText = Math.round(state.correct / state.total * 100)
+        } else {
+          console.log('none')
+          e.stats.style.display = 'none'
+        }
+      }
+
+      const change = (e) => {
+        state.total = 0
+        state.crat = +e.value
+        state.correct = 0
+        update();
+      }
+
+      const yes = () => {
+        if (!(state.number % state.crat)) state.correct++
+        state.total++
+        update()
+      }
+
+      const no = () => {
+        if ((state.number % state.crat)) state.correct++
+        state.total++
+        update()
+      }
+
+      update()
+    </script>
+  </body>
+</html>
+
