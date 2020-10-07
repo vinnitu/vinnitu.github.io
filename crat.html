@@ -36,6 +36,9 @@
 
       const update = () => {
         state.number = random()
+        if (Math.random() > .5) {
+          state.number = state.number - (state.number % state.crat)
+        }        
         e.number.innerText = state.number
         if (state.total) {
           e.stats.style.display = 'block'
