@@ -10,7 +10,7 @@
     </div>
     <hr>
     <div>total: <span id='total'></span></div>
-    <div>correct: <span id='correct'></span>(<span id='procent'></span>%)</div>
+    <div>correct: <span id='correct'>?</span>(<span id='procent'>?</span>%)</div>
     <script>
       const e = Object.fromEntries(['number', 'total', 'wrong', 'correct', 'procent'].map(id => [id, document.querySelector('#' + id)]))
       
@@ -25,9 +25,11 @@
       const update = () => {
         state.number = random()
         e.number.innerText = state.number
-        e.total.innerText = state.total
-        e.correct.innerText = state.correct
-        e.procent.innerText = Math.round(state.correct / state.total * 100)
+        if (state.total) {
+          e.total.innerText = state.total
+          e.correct.innerText = state.correct
+          e.procent.innerText = Math.round(state.correct / state.total * 100)
+        }
       }
 
       const yes = () => {
