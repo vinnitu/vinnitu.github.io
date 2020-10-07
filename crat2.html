@@ -1,0 +1,48 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Кратное 2?</h1>
+    <div>
+      <button onclick='yes()'>yes</button>
+      <span id='number'></span>
+      <button onclick='no()'>no</button>
+    </div>
+    <hr>
+    <div>total: <span id='total'></span></div>
+    <div>correct: <span id='correct'></span>(<span id='procent'></span>%)</div>
+    <script>
+      const e = Object.fromEntries(['number', 'total', 'wrong', 'correct', 'procent'].map(id => [id, document.querySelector('#' + id)]))
+      
+      const random = () => Math.round(Math.random() * 1000)
+
+      const state = {
+        total: 0,
+        correct: 0,
+        number: random()
+      }
+
+      const update = () => {
+        state.number = random()
+        e.number.innerText = state.number
+        e.total.innerText = state.total
+        e.correct.innerText = state.correct
+        e.procent.innerText = Math.round(state.correct / state.total * 100)
+      }
+
+      const yes = () => {
+        if (!(state.number % 2)) state.correct++
+        state.total++
+        update()
+      }
+
+      const no = () => {
+        if ((state.number % 2)) state.correct++
+        state.total++
+        update()
+      }
+      
+      update()
+    </script>
+  </body>
+</html>
